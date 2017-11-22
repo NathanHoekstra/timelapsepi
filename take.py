@@ -37,8 +37,8 @@ def annotate(file_name):
 	time = i.strftime('%d-%m-%Y %H:%M:%S')
 
 	os_command = '/usr/bin/convert ' + file_name + ' -pointsize 25 -fill white -annotate +1680+1060 ' + repr(time) + ' '
-	os_command += '-pointsize 25 -fill white -annotate +10+1060 "(c) N.Hoekstra" ' + file_name
-	print('Adding time and (c) anotation to picture')
+	os_command += '-pointsize 25 -fill white -annotate +10+1060 ' + repr(config['annotation_text']) + ' ' +  file_name
+	print('Adding annotation to picture')
 	os.system(os_command)
 
 def run_loop(base, pause, config):
@@ -62,7 +62,7 @@ def run_loop(base, pause, config):
 			os.system(os_command)
 			print('Written: {}'.format(file_name))
 
-			if config['enable_anotation']:
+			if config['enable_annotation']:
 				annotate(file_name)
 		else:
 			print('Shot cancelled during hours of darkness time: {}'.format(time_now))
