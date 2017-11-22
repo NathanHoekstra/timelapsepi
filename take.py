@@ -1,6 +1,5 @@
 import os
 import time
-import sys
 from datetime import datetime
 from config import config
 
@@ -25,9 +24,9 @@ def make_os_command(config, file_name):
 	width = config['width']
 
 	os_command = '/opt/vc/bin/raspistill -q ' + str(config['quality']) + ' '
-	if(config['flip_horizontal']):
+	if config['flip_horizontal']:
 		os_command = os_command + '-hf '
-	if(config['flip_vertical']):
+	if config['flip_vertical']:
 		os_command = os_command + '-vf '
 
 	os_command = os_command + '-h ' + str(height)+ ' -w ' + str(width) + ' -o ' + file_name
@@ -51,7 +50,7 @@ def run_loop(base, pause, config):
 	while True:
 		time_now = int(time.strftime('%H%M'))
 
-		if(time_now > am and pm > time_now):
+		if time_now > am and pm > time_now:
 			now = datetime.now()
 			path = prepare_dir(base, now)
 
@@ -63,20 +62,18 @@ def run_loop(base, pause, config):
 			os.system(os_command)
 			print('Written: {}'.format(file_name))
 
-			annotate(file_name)
+			if config['enable_anotation']:
+				annotate(file_name)
 		else:
 			print('Shot cancelled during hours of darkness time: {}'.format(time_now))
+		
 		print('Pausing {} seconds'.format(pause))
 		time.sleep(pause)
 
-if(__name__ == '__main__'):
-	if len(sys.argv) < 1:
-		print('Please add the delay in seconds eq: take.py 60')
-		exit()
-	else:
-		try:
-			pause_interval = int(sys.argv[1])
-			base_path = config['base_path']
-			run_loop(base_path, pause_interval, config)
-		except KeyboardInterrupt:
-			print('Cancelling take.py')
+if __name__ == '__main__':
+	try:
+		pause_interval = config['delay']
+		base_path = config['base_path']
+		run_loop(base_path, pause_interval, config)
+	except KeyboardInterrupt:
+		print('Cancelling take.py')
