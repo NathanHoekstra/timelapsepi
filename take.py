@@ -3,6 +3,13 @@ import time
 from datetime import datetime
 from config import config
 
+def create_log(string):
+	i = datetime.now()
+	time = i.strftime('[%d-%m-%Y %H:%M:%S]')
+
+	with open('log.txt', 'a') as log_file:
+		log_file.write(time + ' ' + string + '\n')
+
 def try_to_mkdir(path):
 	if os.path.exists(path) == False:
 		os.makedirs(path)
@@ -38,14 +45,14 @@ def annotate(file_name):
 
 	os_command = '/usr/bin/convert ' + file_name + ' -pointsize 25 -fill white -annotate +1680+1060 ' + repr(time) + ' '
 	os_command += '-pointsize 25 -fill white -annotate +10+1060 ' + repr(config['annotation_text']) + ' ' +  file_name
-	print('Adding annotation to picture')
+	create_log('Adding annotation to picture')
 	os.system(os_command)
 
 def run_loop(base, pause, config):
 	am = config['am']
 	pm = config['pm']
 
-	print('Shots will be taken between {} AM and {} PM'.format(am, pm))
+	create_log('Shots will be taken between {} AM and {} PM'.format(am, pm))
 
 	while True:
 		time_now = int(time.strftime('%H%M'))
@@ -55,19 +62,19 @@ def run_loop(base, pause, config):
 			path = prepare_dir(base, now)
 
 			name = str(time_now) + '.jpg'
-			print('Capturing {}'.format(name))
+			create_log('Capturing {}'.format(name))
 			file_name = base + '/' + path + '/' + name
 
 			os_command = make_os_command(config, file_name)
 			os.system(os_command)
-			print('Written: {}'.format(file_name))
+			create_log('Written: {}'.format(file_name))
 
 			if config['enable_annotation']:
 				annotate(file_name)
 		else:
-			print('Shot cancelled during hours of darkness time: {}'.format(time_now))
+			create_log('Shot cancelled during hours of darkness time: {}'.format(time_now))
 		
-		print('Pausing {} seconds'.format(pause))
+		create_log('Pausing {} seconds'.format(pause))
 		time.sleep(pause)
 
 if __name__ == '__main__':
