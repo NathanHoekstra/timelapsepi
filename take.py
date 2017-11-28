@@ -15,15 +15,8 @@ def try_to_mkdir(path):
 		os.makedirs(path)
 
 def prepare_dir(base, now):
-	path = str(now.year)
+	path = now.strftime('%d-%m-%Y')
 	try_to_mkdir(base + '/' + path)
-
-	path = str(now.year) + '/' + str(now.month)
-	try_to_mkdir(base + '/' + path)
-
-	path = str(now.year) + '/' + str(now.month) + '/' + str(now.day)
-	try_to_mkdir(base + '/' + path)
-
 	return path
 
 def make_os_command(config, file_name):

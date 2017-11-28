@@ -7,9 +7,9 @@ config['enable_annotation'] = True
 
 
 # ---- Time settings  ----
-config['am'] = 400
-config['pm'] = 2100
-config['delay'] = 180
+config['am'] = 600
+config['pm'] = 1900
+config['delay'] = 120
 
 # ---- Raspistill image settings ----
 config['flip_horizontal'] = False
