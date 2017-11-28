@@ -1,4 +1,5 @@
 # TimelapsePi
+A timelapse Python application for the Raspberry Pi
 
 ## Usage
 1. Install imagemagic using ```sudo apt-get install imagemagic -y``` this is used for the annotation.
