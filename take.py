@@ -23,7 +23,7 @@ def make_os_command(config, file_name):
 	height = config['height']
 	width = config['width']
 
-	os_command = '/opt/vc/bin/raspistill -q ' + str(config['quality']) + ' '
+	os_command = '/usr/bin/raspistill -q ' + str(config['quality']) + ' '
 	if config['flip_horizontal']:
 		os_command = os_command + '-hf '
 	if config['flip_vertical']:
