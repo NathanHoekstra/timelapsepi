@@ -15,7 +15,7 @@ def try_to_mkdir(path: str):
 		os.makedirs(path)
 
 def prepare_dir(base: str, now: datetime):
-	path = now.strftime('%d-%m-%Y')
+	path = now.strftime('%Y.%m.%d')
 	try_to_mkdir(f'{base}/{path}')
 	return path
 
