@@ -1,5 +1,7 @@
 import os
 import time
+from picamera2 import Picamera2
+from libcamera import Transform, controls
 from datetime import datetime
 from config import config
 
@@ -19,16 +21,6 @@ def prepare_dir(base: str, now: datetime):
 	try_to_mkdir(f'{base}/{path}')
 	return path
 
-def make_os_command(file_name: str):
-	os_command = f'/usr/bin/raspistill -q {config["quality"]} '
-	if config["flip_horizontal"]:
-		os_command += '-hf '
-	if config["flip_vertical"]:
-		os_command += '-vf '
-
-	os_command += f'-h {config["height"]} -w {config["width"]} -o {file_name}'
-	return os_command
-
 def annotate(file_name: str):
 	i = datetime.now()
 	time = i.strftime('%d-%m-%Y %H:%M:%S')
@@ -44,6 +36,23 @@ def run_loop():
 	am = config["am"]
 	pm = config["pm"]
 
+	picam2 = Picamera2()
+	picam2.options["quality"] = config["quality"]
+
+	camera_config = picam2.create_still_configuration(
+		main={"size": (config["width"], config["height"])},
+		transform=Transform(hflip=config["flip_horizontal"], vflip=config["flip_vertical"]),
+		display=None
+	)
+
+	picam2.configure(camera_config)
+	picam2.start()
+	try:
+		picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+	except Exception:
+		create_log(f'set_contols not supported (older camera).')
+	time.sleep(2)
+
 	create_log(f'Shots will be taken between {am} AM and {pm} PM')
 
 	while True:
@@ -57,8 +66,7 @@ def run_loop():
 			create_log(f'Capturing {name}')
 
 			file_name = f'{base}/{path}/{name}'
-			os_command = make_os_command(file_name)
-			os.system(os_command)
+			picam2.capture_file(file_name)
 			create_log(f'Written: {file_name}')
 
 			if config["enable_annotation"]:

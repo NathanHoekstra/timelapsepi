@@ -9,6 +9,6 @@ A timelapse application written in Python3 for the Raspberry Pi.
 ## TODO
 
 - [x] Use f-string instead of the 'old' string concatenation.
-- [ ] Add support for Raspberry Pi Camera Module 3.
+- [x] Add support for Raspberry Pi Camera Module 3.
 - [ ] Use openweathermap API for the sunrise/sunset config.
 - [ ] Modify picture annotation with more config options.
