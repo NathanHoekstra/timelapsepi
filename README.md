@@ -13,7 +13,7 @@ A timelapse application written in Python3 for the Raspberry Pi.
 - [x] Use f-string instead of the 'old' string concatenation.
 - [x] Add support for Raspberry Pi Camera Module 3.
 - [x] Use openweathermap API for the sunrise/sunset config.
-- [ ] Setup Systemd service file.
+- [x] Setup Systemd service file.
 - [ ] Move to a .ini file for application configuration.
-- [ ] Create installer/uninstaller script.
+- [ ] Create application installer/uninstaller script (including apt packages).
 - [ ] Modify picture annotation with more config options.
