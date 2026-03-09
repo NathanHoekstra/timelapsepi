@@ -1,5 +1,5 @@
 [Unit]
-Description=Timelapse Service
+Description=TimelapsePi Service
 After=network-online.target
 Wants=network-online.target
 
