@@ -1,0 +1,15 @@
+[Unit]
+Description=Timelapse Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 {{PROJECT_DIR}}/take.py
+WorkingDirectory={{PROJECT_DIR}}
+Restart=unless-stopped
+RestartSec=5
+User={{USER}}
+
+[Install]
+WantedBy=multi-user.target
