@@ -2,8 +2,8 @@
 config = {}
 
 # ---- Base settings ----
-config['base_path'] = '/pictures'   # Base path to store the images
-config['enable_annotation'] = True  # Enable annotation of the images
+config['base_path'] = '/home/pi/pictures'   # Base path to store the images
+config['enable_annotation'] = True          # Enable annotation of the images
 
 # ----- Annotation settings ----
 config['annotation_text'] = '(C) N.Hoekstra'    # Optional, adds text on the bottom-left of the image
