@@ -14,6 +14,7 @@ A timelapse application written in Python3 for the Raspberry Pi.
 - [x] Add support for Raspberry Pi Camera Module 3.
 - [x] Use openweathermap API for the sunrise/sunset config.
 - [x] Setup Systemd service file.
+- [ ] Add ability to offset the AM/PM setting when using the OpenWeather API.
 - [ ] Move to a .ini file for application configuration.
 - [ ] Create application installer/uninstaller script (including apt packages).
 - [ ] Modify picture annotation with more config options.

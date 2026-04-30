@@ -8,7 +8,7 @@ config['enable_annotation'] = True          # Enable annotation of the images
 # ----- Annotation settings ----
 config['annotation_text'] = '(C) N.Hoekstra'    # Optional, adds text on the bottom-left of the image
 
-# ---- OpenWeatherAPI settings ----
+# ---- OpenWeather API settings ----
 config['use_openweather'] = False       # Use openweather API to get unrise/sunset times (am/pm setting)
 config['openweather'] = {}
 config['openweather']['api_key'] = ""   # Set openweather API key

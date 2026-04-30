@@ -113,7 +113,7 @@ def annotate(file_name: str):
 
 	os_command = f'/usr/bin/convert {file_name} -pointsize 25 -fill white -annotate +{config["width"] - 240}+{config["height"] - 20} {repr(time)} '
 	os_command += f'-pointsize 25 -fill white -annotate +10+{config["height"] - 20} {repr(config["annotation_text"])} {file_name}'
-	logging.info('Adding annotation to picture')
+	logging.debug('Adding annotation to picture')
 	os.system(os_command)
 
 def run_loop():
@@ -162,18 +162,18 @@ def run_loop():
             path = prepare_dir(base, now)
 
             name = f'{time_now}.jpg'
-            logging.info(f'Capturing {name}')
+            logging.debug(f'Capturing {name}')
 
             file_name = f'{base}/{path}/{name}'
             picam2.capture_file(file_name)
-            logging.info(f'Written: {file_name}')
+            logging.debug(f'Written: {file_name}')
 
             if config['enable_annotation']:
                 annotate(file_name)
         else:
-            logging.info(f'Shot cancelled during hours of darkness time: {time_now}')
+            logging.debug(f'Shot cancelled during hours of darkness time: {time_now}')
         
-        logging.info(f'Pausing {pause} seconds')
+        logging.debug(f'Pausing {pause} seconds')
         time.sleep(pause)
 
 if __name__ == '__main__':
