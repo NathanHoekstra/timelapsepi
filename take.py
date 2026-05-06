@@ -16,14 +16,11 @@ from config import config
 base_url = 'https://api.openweathermap.org/data/2.5/weather?'
 
 # complete url address
-API_URL = f'{base_url}appid={config["openweather"]["api_key"]}&units=metric&q={config["openweather"]["city"]}'
+API_URL = f'{base_url}appid={config['openweather']['api_key']}&units=metric&q={config['openweather']['city']}'
 
 # Time to make the daily API call (24-hour format)
 CALL_HOUR = 4    # 4 AM
 CALL_MINUTE = 0  # 0 minutes past the hour
-
-# Offset used for the sunset/sunrise
-OFFSET_MINUTES = 40
 
 # Global variables to store the start/end time for taking pictures
 am = None
@@ -66,12 +63,12 @@ def call_api():
             # otherwise city is not found
             if x['cod'] != '404':
                 global am, pm
-                am = (datetime.fromtimestamp(x['sys']['sunrise']) + timedelta(minutes=-OFFSET_MINUTES)).strftime("%H%M")
-                pm = (datetime.fromtimestamp(x['sys']['sunset']) + timedelta(minutes=OFFSET_MINUTES)).strftime("%H%M")
+                am = (datetime.fromtimestamp(x['sys']['sunrise']) + timedelta(minutes=int(config['openweather']['am_offset']))).strftime('%H%M')
+                pm = (datetime.fromtimestamp(x['sys']['sunset']) + timedelta(minutes=int(config['openweather']['pm_offset']))).strftime('%H%M')
                 logging.info(f'Shots will be taken between {am} AM and {pm} PM')
                 return 0
             else:
-                logging.error("The configured city is not found!")
+                logging.error('The configured city is not found!')
                 return 1
         else:
             logging.error(f'API call failed with status code: {response.status_code}')

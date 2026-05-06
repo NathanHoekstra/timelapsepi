@@ -11,8 +11,10 @@ config['annotation_text'] = '(C) N.Hoekstra'    # Optional, adds text on the bot
 # ---- OpenWeather API settings ----
 config['use_openweather'] = False       # Use openweather API to get unrise/sunset times (am/pm setting)
 config['openweather'] = {}
-config['openweather']['api_key'] = ""   # Set openweather API key
-config['openweather']['city']    = ""   # Set city name
+config['openweather']['api_key'] = ""       # Set openweather API key
+config['openweather']['city']    = ""       # Set city name
+config['openweather']['am_offset'] = "0"    # Use either a positive or negative value to offset the start time (in minutes)
+config['openweather']['pm_offset'] = "0"    # Use either a positive or negative value to offset the end time (in minutes)
 
 # ---- Time settings  ----
 config['am']    = 800   # Start time to take pictures (ignored if use_openweather = True)
